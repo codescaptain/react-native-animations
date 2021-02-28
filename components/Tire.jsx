@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Animated, Image, StyleSheet, Easing } from "react-native";
 
-class WindMill extends Component {
+class Tire extends Component {
   state = {
     animation: new Animated.Value(0),
   };
@@ -12,7 +12,7 @@ class WindMill extends Component {
   startAnimation = () => {
     Animated.loop(
       Animated.timing(this.state.animation, {
-        duration: 5000,
+        duration: 1000,
         toValue: 1,
         easing: Easing.linear,
       })
@@ -21,7 +21,7 @@ class WindMill extends Component {
   render() {
     const interpolation = this.state.animation.interpolate({
       inputRange: [0, 1],
-      outputRange: ["0deg", "360deg"],
+      outputRange: ["360deg", "0deg"],
     });
     const animatedStyles = {
       transform: [
@@ -30,44 +30,26 @@ class WindMill extends Component {
         },
       ],
     };
-
     return (
-      <View style={[styles.container, { ...this.props.style }]}>
+      <View style={styles.container}>
         <Animated.Image
-          style={[styles.windmillSpinner, animatedStyles]}
-          source={require("../assets/spinner.png")}
+          source={require("../assets/tire.png")}
           resizeMode="contain"
-        />
-        <Image
-          style={styles.windmillBottom}
-          source={require("../assets/windmill-bottom.png")}
-          resizeMode="contain"
+          style={[styles.tire, animatedStyles]}
         />
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
   },
-  windmillSpinner: {
-    width: 130,
-    height: 140,
-    position: "absolute",
-    left: 45,
-    top: 80,
-    zIndex: 2,
-  },
-  windmillBottom: {
-    width: 220,
-    height: 220,
-    position: "absolute",
-    zIndex: 1,
-    top: 140,
+  tire: {
+    width: 50,
+    height: 150,
   },
 });
 
-export default WindMill;
+export default Tire;
